@@ -57,19 +57,15 @@ const loginUser = async (req, res) => {
       const { email, password} = req.body;
 
       // Check if user exists
-      console.log("passed 1")
       const user = await User.findOne({email});
       if (!user) return res.status(400).send('Invalid email or password');
 
-      console.log("Passed 2")
       // Validate password
       const isPasswordCorrect = await bcrypt.compare(password, user?.password || "" )
       if (!isPasswordCorrect) return res.status(400).send('Invalid email or password');
   
       // Generate JWT
-      console.log("Passed 3")
       await generateTokenAndSetCookie(user._id,res)
-      console.log("Passed 4")
       return res.status(201).json({
         name : user.name,
         email,
