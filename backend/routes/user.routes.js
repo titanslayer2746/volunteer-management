@@ -1,6 +1,6 @@
 import express from 'express';
 import { checkRole, protectRoute } from '../middlewares/auth.middleware.js';
-import { deleteUser, getUsers } from '../controllers/user.controller.js';
+import { deleteUser, getUser, getUsers, updateUser } from '../controllers/user.controller.js';
 const router = express.Router();
 
 // Get all users (Admin only)
@@ -16,3 +16,4 @@ router.put('/:id', protectRoute, checkRole(['admin']), updateUser);
 router.delete('/:id', protectRoute, checkRole(['admin']), deleteUser);
 
 export default router;
+

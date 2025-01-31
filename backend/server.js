@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from "cors";
 import authRouter from "./routes/auth.routes.js"
 import taskRouter from "./routes/task.routes.js"
+import userRouter from "./routes/user.routes.js"
 import connectDB from "./db/index.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config({
   path: './backend/.env'
@@ -16,10 +17,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//Cookie Parsing
+
+app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRouter);
-// app.use('/api/users', userRoutes);
+app.use('/api/users', userRouter);
 app.use('/api/tasks', taskRouter);
 
 const PORT = process.env.PORT || 5000;
